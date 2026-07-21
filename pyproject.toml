@@ -13,7 +13,7 @@ license-files = ["LICENSE", "NOTICE"]
 authors = [{name = "Ahmad Alzayer"}]
 keywords = ["ics", "cybersecurity", "anomaly-detection", "physics-aware"]
 classifiers = [
-  "Development Status :: 5 - Production/Stable",
+  "Development Status :: 4 - Beta",
   "Intended Audience :: Science/Research",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.11",
@@ -40,11 +40,18 @@ dev = [
 [project.scripts]
 physguard = "physguard.cli:main"
 
+[project.urls]
+Homepage = "https://github.com/Alzayer8/PhysGuard-ICS"
+Repository = "https://github.com/Alzayer8/PhysGuard-ICS"
+Documentation = "https://github.com/Alzayer8/PhysGuard-ICS/tree/main/docs"
+Issues = "https://github.com/Alzayer8/PhysGuard-ICS/issues"
+Changelog = "https://github.com/Alzayer8/PhysGuard-ICS/blob/main/CHANGELOG.md"
+
 [tool.setuptools.packages.find]
 include = ["physguard*"]
 
 [tool.setuptools.package-data]
-physguard = ["py.typed"]
+physguard = ["py.typed", "data/*.yaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

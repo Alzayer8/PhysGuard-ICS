@@ -1,12 +1,15 @@
 # Public release report
 
-This report is finalized after the content audit and checksum pass. See
+This report tracks the pre-release verification state. See
 `release_manifest.json` for the exact file inventory and `SHA256SUMS.txt` for verification.
 
-- Release: PhysGuard-ICS v1.0.0
+- Target release: PhysGuard-ICS v1.0.0
+- Audit status: Pre-release verification pending
+- Audited commit: `<COMMIT_SHA>`
+- GitHub Release: Not yet published
 - Scope: public, offline, synthetic-data-first toolkit
 - Sealed research modified: no
-- Total release size: 2327624 bytes
+- Total release size: 2332633 bytes
 - SHA-256 manifest: generated and verified
 - README: complete
 - Dashboard: import and headless startup verified
@@ -14,8 +17,7 @@ This report is finalized after the content audit and checksum pass. See
 - NOTICE: present
 - SPDX headers: 13 project-authored Python files
 - Legacy-license references: 0
-- Verification: Ruff passed; strict MyPy passed; pytest 5/5 passed; wheel build passed
-- GitHub readiness score: 100/100
+- Verification: local checks must pass before the corrected release commit is created
 
 ## Intentionally excluded
 
@@ -31,4 +33,11 @@ This report is finalized after the content audit and checksum pass. See
 The release contains the installable `physguard` package, upload-first dashboard,
 synthetic toy CSV splits, example configuration, tests, documentation, project artwork,
 community health files, CI configuration, license, citation metadata, checksum list, and
-the signed release manifest.
+the release integrity manifest.
+
+## Research boundary
+
+This public educational toolkit is separate from the sealed Revised Study v2. It excludes
+the HAI datasets, frozen baseline artifacts, study-specific configurations, fitted models,
+checkpoints, and sealed study results. Its toy-baseline output does not reproduce or
+validate that sealed study.

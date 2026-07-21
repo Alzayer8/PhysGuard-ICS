@@ -1,0 +1,7 @@
+anomaly_z_threshold: 4.0
+
+physics_limits:
+  tank_level: [0.0, 10.0]
+  pressure: [0.0, 5.0]
+  closed_valve_max_flow: 0.08
+  stopped_pump_max_flow: 0.08

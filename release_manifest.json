@@ -4,12 +4,14 @@
     "author": "Ahmad Alzayer",
     "version": "v1.0.0",
     "release_identifier": "physguard-ics-public-v1.0.0",
-    "release_timestamp": "2026-07-21T23:55:00+03:00",
-    "repository_identifier": "PhysGuard-ICS/github-release",
+    "release_status": "pre-release",
+    "release_timestamp": null,
+    "repository_identifier": "Alzayer8/PhysGuard-ICS",
+    "repository_url": "https://github.com/Alzayer8/PhysGuard-ICS",
     "hash_algorithm": "SHA-256",
-    "manifest_scope": "all files except release_manifest.json itself",
-    "total_file_count": 47,
-    "total_release_bytes": 2327624
+    "manifest_scope": "all Git-tracked files except release_manifest.json itself",
+    "total_file_count": 48,
+    "total_release_bytes": 2332633
   },
   "files": [
     {
@@ -24,8 +26,8 @@
     },
     {
       "filename": ".github/ISSUE_TEMPLATE/config.yml",
-      "size": 27,
-      "sha256": "13064e7bea658e01e718b414fbb7b3b244f36411fe25ee2055c151f7b534547a"
+      "size": 28,
+      "sha256": "1f103c6a9dd07cd13a9a6f17ace6b813f47747eb9cb7e00488cb2073caaf91bb"
     },
     {
       "filename": ".github/ISSUE_TEMPLATE/feature_request.yml",
@@ -44,8 +46,8 @@
     },
     {
       "filename": ".github/workflows/ci.yml",
-      "size": 683,
-      "sha256": "2e904f8882d757f9447bbd62e038bc2045b2454119cdd0ca7713e22dc8a0aea2"
+      "size": 804,
+      "sha256": "d5a7ba2e17f1366acba330755f9dfa57b95dc5891e0ff6380c84659f20402cea"
     },
     {
       "filename": ".gitignore",
@@ -54,13 +56,13 @@
     },
     {
       "filename": "CHANGELOG.md",
-      "size": 751,
-      "sha256": "9637a99fbcca469be41682f77559402936d3d973c0ee72b505faad12e3ccaa37"
+      "size": 754,
+      "sha256": "c07fedd22c0f428abf2a63d5b743c17c5237276bf76993ba59c767d6a31e216f"
     },
     {
       "filename": "CITATION.cff",
-      "size": 489,
-      "sha256": "5a2e2de435680d66bc0aea193400ca4ca44512e2b8e8391fd5c231a428952c0f"
+      "size": 573,
+      "sha256": "b21deeedf3f152c8fcea1498b9d719d649205197dec5340a0e8c5be4013ebe96"
     },
     {
       "filename": "CODE_OF_CONDUCT.md",
@@ -84,8 +86,8 @@
     },
     {
       "filename": "README.md",
-      "size": 6717,
-      "sha256": "2e76f6ab7d43ea1810689add7e09dc1b436adb0c2bcdb614980b10cd344552c3"
+      "size": 7292,
+      "sha256": "982e06c7c6bf56f92694902c0e3061dad39b8b4125fec6c86298002b506f72c6"
     },
     {
       "filename": "SECURITY.md",
@@ -119,8 +121,8 @@
     },
     {
       "filename": "dashboard/app.py",
-      "size": 4252,
-      "sha256": "7bdc60b76d3647bde5b570809420651b41b5d5bbb5aba2bd15eb936232bb58f3"
+      "size": 4338,
+      "sha256": "a8635d52e1b714b4f802707053cff332eebe6a8913c26b4f4b369665c6532e9c"
     },
     {
       "filename": "docs/ARCHITECTURE.md",
@@ -129,18 +131,18 @@
     },
     {
       "filename": "docs/AUTHENTICITY.md",
-      "size": 991,
-      "sha256": "e65ee03eeeb7280f2fb39c183741862d39d2cfe5e811f47001d6500a8ea5091e"
+      "size": 1137,
+      "sha256": "bdc768bb94d2c6990085c549a0d5ef7ff3c1f0d1604e3e54527ece62eda27006"
     },
     {
       "filename": "docs/DATASET_GUIDE.md",
-      "size": 1203,
-      "sha256": "ce9f99e5544b2bf95c1c243b0e70c2fc1bf41533451e303a41d0a9f43ce3202c"
+      "size": 1440,
+      "sha256": "c52714f0e1996baf2780d0856d013116386f91f998f6a1dbe80723db92ae7321"
     },
     {
       "filename": "docs/RELEASE_REPORT.md",
-      "size": 1498,
-      "sha256": "9d621a1c35b0de0e64b9dc175b7764efeee9460abfc43acc52a382a4e7c86645"
+      "size": 1895,
+      "sha256": "9d9361e8f8e16c2e6b9460529dea70adba0d4e41a69cd287d2011d4e7ad80c16"
     },
     {
       "filename": "environment.yml",
@@ -169,13 +171,18 @@
     },
     {
       "filename": "physguard/cli.py",
-      "size": 2795,
-      "sha256": "57c1624f0ae03b6c7bd1b5f1ac271e17558b361c70e2936933f449dfc816258e"
+      "size": 2818,
+      "sha256": "092fe926e92958f6870f41d15fc2e830f96d06608a0930e1a00276ced9fdbf6c"
     },
     {
       "filename": "physguard/config.py",
       "size": 754,
       "sha256": "6d20a15de724428d19ce41a2224e9991f9728c687d003bef32b14539db23aa0b"
+    },
+    {
+      "filename": "physguard/data/example.yaml",
+      "size": 151,
+      "sha256": "f6a25008a9895c51c2816cf2c2364e3d4b90c68a6aa9c82d2532d59556538d01"
     },
     {
       "filename": "physguard/experiments.py",
@@ -189,8 +196,8 @@
     },
     {
       "filename": "pyproject.toml",
-      "size": 1532,
-      "sha256": "0e7f8062e608fb963a37fe6ea746733223ef3de712c434768ad350fc22035091"
+      "size": 1876,
+      "sha256": "5a7e62a116bf1c5da0acd5ec956f5438e90fadc02c16bbf982eb62f2b5e685ad"
     },
     {
       "filename": "requirements.txt",
@@ -199,28 +206,28 @@
     },
     {
       "filename": "sample_data/test.csv",
-      "size": 6641,
-      "sha256": "517f31831b1df8b4a55cfdcd6c42eb0876366e1fc5b82a6a32051901d57b6386"
+      "size": 6520,
+      "sha256": "340755ea7c6c031da920fa066d94f92778508df8898d0f7e6f5987de0e45df87"
     },
     {
       "filename": "sample_data/train.csv",
-      "size": 6690,
-      "sha256": "33fefbe4bb1bf04453da0870a7d9b326de701bf40bf51507cf9e37cdff34837f"
+      "size": 6569,
+      "sha256": "66329759ed06757ccbe36d295126741f0ec7f092c3765cd9c4bbb3fd32c57793"
     },
     {
       "filename": "sample_data/validation.csv",
-      "size": 3378,
-      "sha256": "859a0533632de0e7a742808ea575dff58b99d5571e173cea3d66b361b6a4902c"
+      "size": 3317,
+      "sha256": "0dda148d26166bced5c3130107fdfee17fe8cdceeb384f8c6d7ec9b29d224e24"
     },
     {
       "filename": "scripts/create_sample_data.py",
-      "size": 2643,
-      "sha256": "3d0be42c1a4334bff0be8d0606623d0f5b99fbba43a0352654595d6c11e7b69a"
+      "size": 2723,
+      "sha256": "43cd1bb8103bdf6b4afa29baa860954c16e4035da4bb4d51f8c05bc0a12a7530"
     },
     {
       "filename": "scripts/release_integrity.py",
-      "size": 5732,
-      "sha256": "34f8b94cd4ace45d594f7781e5d2833677b56397f5be64c932ce6a8d765fac3a"
+      "size": 8184,
+      "sha256": "beb1df2dbb63082e9201c9fa9fd1e96ad581dffd93b3315addf4cca069609264"
     },
     {
       "filename": "tests/test_analysis.py",
@@ -229,8 +236,8 @@
     },
     {
       "filename": "tests/test_cli.py",
-      "size": 213,
-      "sha256": "3634277b1643c07e638f94e383e7c869fa5f3f54c59fe11b3740a74a32194b90"
+      "size": 441,
+      "sha256": "c72aa9467218b4d687db48646052f86c91967bdea518a9b61e3eb76fd1398aa3"
     },
     {
       "filename": "tests/test_experiments.py",
@@ -239,13 +246,13 @@
     },
     {
       "filename": "SHA256SUMS.txt",
-      "size": 3894,
-      "sha256": "4a63362edfb8e6c67cf1110efb4f7a7493d4cecee0191ad68f6c73b164db7645"
+      "size": 3988,
+      "sha256": "d33d19f49b9147730c376e48d8c8f7c5754473bd6a5b8d3ecd1a8cdc2f28211c"
     }
   ],
-  "official_release_signature": {
+  "authenticity_statement": {
     "project": "PhysGuard-ICS",
     "author": "Ahmad Alzayer",
-    "notice": "This signature is for authenticity only and is NOT a cryptographic code-signing certificate."
+    "notice": "This statement is descriptive metadata only. It is not a digital signature and does not authenticate the repository cryptographically."
   }
 }

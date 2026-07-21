@@ -59,7 +59,12 @@ def generate(output: Path) -> None:
     if conflicts:
         raise FileExistsError(f"refusing to overwrite: {', '.join(conflicts)}")
     for name, frame in frames.items():
-        frame.to_csv(output / name, index=False, date_format="%Y-%m-%dT%H:%M:%SZ")
+        frame.to_csv(
+            output / name,
+            index=False,
+            date_format="%Y-%m-%dT%H:%M:%SZ",
+            lineterminator="\n",
+        )
 
 
 def main() -> int:
