@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use PhysGuard-ICS, please cite this software."
+type: software
+title: "PhysGuard-ICS"
+authors:
+  - family-names: "Alzayer"
+    given-names: "Ahmad"
+version: "1.0.0"
+date-released: "2026-07-21"
+license: Apache-2.0
+abstract: >-
+  An offline, physics-aware reference toolkit for transparent anomaly triage in
+  industrial-control-system telemetry.
+keywords:
+  - industrial control systems
+  - anomaly detection
+  - physics-aware detection
+  - cybersecurity
