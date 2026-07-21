@@ -11,6 +11,7 @@ import json
 import os
 import re
 import subprocess
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -19,6 +20,33 @@ CHECKSUM_PATH = ROOT / "SHA256SUMS.txt"
 MANIFEST_PATH = ROOT / "release_manifest.json"
 REPORT_PATH = ROOT / "docs" / "RELEASE_REPORT.md"
 METADATA_NAMES = {CHECKSUM_PATH.name, MANIFEST_PATH.name}
+RELEASE_STATUSES = {"pre-release", "final"}
+
+
+def _validate_release_metadata(
+    release_status: object,
+    release_date: object,
+) -> tuple[str, str | None]:
+    """Validate explicit release metadata without consulting the system clock."""
+
+    if not isinstance(release_status, str) or release_status not in RELEASE_STATUSES:
+        raise ValueError("release status must be 'pre-release' or 'final'")
+    if release_status == "pre-release":
+        if release_date is not None:
+            raise ValueError("pre-release status requires the release date to be unset")
+        return release_status, None
+    if release_date is None:
+        raise ValueError("final release status requires --release-date")
+    if (
+        not isinstance(release_date, str)
+        or re.fullmatch(r"\d{4}-\d{2}-\d{2}", release_date) is None
+    ):
+        raise ValueError("release date must use YYYY-MM-DD format")
+    try:
+        validated_date = date.fromisoformat(release_date)
+    except ValueError as error:
+        raise ValueError("release date must be a valid ISO date in YYYY-MM-DD format") from error
+    return release_status, validated_date.isoformat()
 
 
 def _sha256_bytes(payload: bytes) -> str:
@@ -76,7 +104,12 @@ def _entry(path: Path) -> dict[str, str | int]:
     }
 
 
-def _render_metadata() -> tuple[bytes, bytes, int]:
+def _render_metadata(
+    *,
+    release_status: str,
+    release_date: str | None,
+) -> tuple[bytes, bytes, int]:
+    release_status, release_date = _validate_release_metadata(release_status, release_date)
     entries = [_entry(path) for path in _payload_files()]
     sums = "".join(f"{entry['sha256']}  {entry['filename']}\n" for entry in entries).encode("utf-8")
     manifest_entries = [
@@ -97,8 +130,8 @@ def _render_metadata() -> tuple[bytes, bytes, int]:
                 "author": "Ahmad Alzayer",
                 "version": "v1.0.0",
                 "release_identifier": "physguard-ics-public-v1.0.0",
-                "release_status": "pre-release",
-                "release_timestamp": None,
+                "release_status": release_status,
+                "release_date": release_date,
                 "repository_identifier": "Alzayer8/PhysGuard-ICS",
                 "repository_url": "https://github.com/Alzayer8/PhysGuard-ICS",
                 "hash_algorithm": "SHA-256",
@@ -124,11 +157,14 @@ def _render_metadata() -> tuple[bytes, bytes, int]:
     return sums, manifest_bytes, total_bytes
 
 
-def build() -> None:
+def build(*, release_status: str, release_date: str | None) -> None:
     """Write checksum and manifest metadata after stabilizing the report size."""
 
     for _ in range(5):
-        sums, manifest, total_bytes = _render_metadata()
+        sums, manifest, total_bytes = _render_metadata(
+            release_status=release_status,
+            release_date=release_date,
+        )
         report = REPORT_PATH.read_text(encoding="utf-8")
         updated = re.sub(
             r"^- Total release size: (?:__TOTAL_BYTES__|\d+) bytes$",
@@ -167,6 +203,14 @@ def verify() -> None:
     if actual_paths != expected_paths:
         raise RuntimeError("manifest inventory does not match the release tree")
     release = manifest["release"]
+    if "release_status" not in release or "release_date" not in release:
+        raise RuntimeError("manifest release status or date is missing")
+    if "release_timestamp" in release:
+        raise RuntimeError("manifest contains the obsolete release_timestamp field")
+    try:
+        _validate_release_metadata(release["release_status"], release["release_date"])
+    except ValueError as error:
+        raise RuntimeError(f"manifest release metadata is invalid: {error}") from error
     if int(release["total_file_count"]) != len(expected_paths) + 1:
         raise RuntimeError("manifest total file count is invalid")
     total_release_bytes = sum((ROOT / path).stat().st_size for path in expected_paths)
@@ -197,12 +241,25 @@ def verify() -> None:
         raise RuntimeError("checksum inventory does not match the release payload")
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--write", action="store_true", help="rebuild integrity metadata")
-    args = parser.parse_args()
+    parser.add_argument(
+        "--release-status",
+        choices=sorted(RELEASE_STATUSES),
+        default="pre-release",
+    )
+    parser.add_argument("--release-date", help="explicit release date in YYYY-MM-DD format")
+    args = parser.parse_args(argv)
+    try:
+        release_status, release_date = _validate_release_metadata(
+            args.release_status,
+            args.release_date,
+        )
+    except ValueError as error:
+        parser.error(str(error))
     if args.write:
-        build()
+        build(release_status=release_status, release_date=release_date)
     verify()
     print("Release integrity verified: all tracked files, hashes, sizes, and metadata match.")
     return 0

@@ -5,8 +5,8 @@
 - Copyright: Copyright (c) 2026 Ahmad Alzayer
 - Official license: **Apache License 2.0 (`Apache-2.0`)**
 - Release identifier: `physguard-ics-public-v1.0.0`
-- Release status: **Pre-release**
-- Release timestamp: not set until publication
+- Release status: **Final**
+- Release date: `2026-07-22`
 - Repository identifier: `Alzayer8/PhysGuard-ICS`
 - Repository URL: <https://github.com/Alzayer8/PhysGuard-ICS>
 

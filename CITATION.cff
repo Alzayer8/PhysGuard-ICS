@@ -6,6 +6,7 @@ authors:
   - family-names: "Alzayer"
     given-names: "Ahmad"
 version: "1.0.0"
+date-released: "2026-07-22"
 license: "Apache-2.0"
 repository-code: "https://github.com/Alzayer8/PhysGuard-ICS"
 url: "https://github.com/Alzayer8/PhysGuard-ICS"

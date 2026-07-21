@@ -9,7 +9,7 @@ This report tracks the pre-release verification state. See
 - GitHub Release: Not yet published
 - Scope: public, offline, synthetic-data-first toolkit
 - Sealed research modified: no
-- Total release size: 2332633 bytes
+- Total release size: 2337644 bytes
 - SHA-256 manifest: generated and verified
 - README: complete
 - Dashboard: import and headless startup verified

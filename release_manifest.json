@@ -4,14 +4,14 @@
     "author": "Ahmad Alzayer",
     "version": "v1.0.0",
     "release_identifier": "physguard-ics-public-v1.0.0",
-    "release_status": "pre-release",
-    "release_timestamp": null,
+    "release_status": "final",
+    "release_date": "2026-07-22",
     "repository_identifier": "Alzayer8/PhysGuard-ICS",
     "repository_url": "https://github.com/Alzayer8/PhysGuard-ICS",
     "hash_algorithm": "SHA-256",
     "manifest_scope": "all Git-tracked files except release_manifest.json itself",
-    "total_file_count": 48,
-    "total_release_bytes": 2332633
+    "total_file_count": 49,
+    "total_release_bytes": 2337644
   },
   "files": [
     {
@@ -57,12 +57,12 @@
     {
       "filename": "CHANGELOG.md",
       "size": 754,
-      "sha256": "c07fedd22c0f428abf2a63d5b743c17c5237276bf76993ba59c767d6a31e216f"
+      "sha256": "82215bf15a1dc335536190729dc7582b5e8844bfbb352b930711a5d9e68abaad"
     },
     {
       "filename": "CITATION.cff",
-      "size": 573,
-      "sha256": "b21deeedf3f152c8fcea1498b9d719d649205197dec5340a0e8c5be4013ebe96"
+      "size": 601,
+      "sha256": "ff09214b3f60b44f6f8ec6d0d5126618924dd4a5ae1a5c36845cb709d2a3a8b5"
     },
     {
       "filename": "CODE_OF_CONDUCT.md",
@@ -131,8 +131,8 @@
     },
     {
       "filename": "docs/AUTHENTICITY.md",
-      "size": 1137,
-      "sha256": "bdc768bb94d2c6990085c549a0d5ef7ff3c1f0d1604e3e54527ece62eda27006"
+      "size": 1113,
+      "sha256": "74219c5025c3cdf94cf70bf21b1b5242897bdc0ea09edafedc01375f247c22cf"
     },
     {
       "filename": "docs/DATASET_GUIDE.md",
@@ -142,7 +142,7 @@
     {
       "filename": "docs/RELEASE_REPORT.md",
       "size": 1895,
-      "sha256": "9d9361e8f8e16c2e6b9460529dea70adba0d4e41a69cd287d2011d4e7ad80c16"
+      "sha256": "ee12accbf03f325eb08cbf734c254b162ea039f6a78ef4e2494bd1ee8dd8557d"
     },
     {
       "filename": "environment.yml",
@@ -226,8 +226,8 @@
     },
     {
       "filename": "scripts/release_integrity.py",
-      "size": 8184,
-      "sha256": "beb1df2dbb63082e9201c9fa9fd1e96ad581dffd93b3315addf4cca069609264"
+      "size": 10678,
+      "sha256": "19f3231e132b84ada7fdc87133db2ee2017536b73289734a0aafd730ce3ac651"
     },
     {
       "filename": "tests/test_analysis.py",
@@ -245,9 +245,14 @@
       "sha256": "7276fbea1f336eb267c899455ed2524856be5955b37e0d2030d6123babade8ba"
     },
     {
+      "filename": "tests/test_release_integrity.py",
+      "size": 2248,
+      "sha256": "194b2d52ec1d1130f43a5d926d2647966c16e3077ead7f08439026ef4b832141"
+    },
+    {
       "filename": "SHA256SUMS.txt",
-      "size": 3988,
-      "sha256": "d33d19f49b9147730c376e48d8c8f7c5754473bd6a5b8d3ecd1a8cdc2f28211c"
+      "size": 4086,
+      "sha256": "aeb1bd5d83aceb7b17dee2a1ee29466c82f3bbb48d1c33f433579bbca36f770e"
     }
   ],
   "authenticity_statement": {
