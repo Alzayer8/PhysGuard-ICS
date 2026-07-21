@@ -46,7 +46,10 @@ def main() -> None:
             value=str(ROOT / "example-workspace"),
             help="Each run creates a unique child under experiments/. Existing runs are never replaced.",
         )
-        st.markdown("[Dataset guide](../docs/DATASET_GUIDE.md)")
+        st.markdown(
+            "[Dataset guide]"
+            "(https://github.com/Alzayer8/PhysGuard-ICS/blob/main/docs/DATASET_GUIDE.md)"
+        )
 
     st.subheader("1. Upload chronological CSV splits")
     columns = st.columns(3)

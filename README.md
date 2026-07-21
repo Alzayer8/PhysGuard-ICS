@@ -4,10 +4,10 @@
 
 # PhysGuard-ICS
 
-[![Release](https://img.shields.io/badge/release-v1.0.0-00a9ce)](CHANGELOG.md)
+[![Target release](https://img.shields.io/badge/target-v1.0.0-00a9ce)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.11-123a63)](pyproject.toml)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-19a974)](LICENSE)
-[![CI](https://img.shields.io/badge/CI-Ruff%20%7C%20MyPy%20%7C%20pytest-123a63)](.github/workflows/ci.yml)
+[![CI](https://github.com/Alzayer8/PhysGuard-ICS/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Alzayer8/PhysGuard-ICS/actions/workflows/ci.yml)
 
 PhysGuard-ICS is an offline, physics-aware reference toolkit for transparent anomaly
 triage in industrial-control-system telemetry. The public release pairs a simple
@@ -20,7 +20,7 @@ experiment directory.
 
 ## Features
 
-- Strict validation for chronological train, validation, and test CSV files.
+- Strict schema and within-file timestamp validation for train, validation, and test CSV files.
 - Normal-only baseline fitting with no test-label leakage.
 - Transparent feature z-scores and explicit physics-rule reasons.
 - Evidence-preserving categories: `normal`, `ml_only`, `physics_only`, and `hybrid`.
@@ -168,8 +168,19 @@ they accurately reflect the published dashboard environment.
 ├── scripts/              # Synthetic sample generator
 ├── tests/                # Public regression tests
 ├── SHA256SUMS.txt         # Release payload hashes
-└── release_manifest.json # release_manifest.json # Integrity inventory and release metadata
+└── release_manifest.json      # Integrity inventory and release metadata
 ```
+
+## Research boundary
+
+This repository is the public educational PhysGuard-ICS toolkit. It is separate
+from the sealed Revised Study v2. It does not contain the HAI datasets, frozen
+baseline artifacts, study-specific configurations, fitted models, checkpoints,
+or sealed study results.
+
+Results from the transparent toy baseline in this repository must not be
+interpreted as reproducing Revised Study v2 or as evidence of external
+generalization, operational safety, attack attribution, or malicious activity.
 
 ## Known limitations
 

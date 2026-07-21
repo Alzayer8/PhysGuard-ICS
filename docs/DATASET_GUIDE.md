@@ -25,6 +25,10 @@ column meanings, units, thresholds, and topology to your authorized system befor
 any conclusion. The defaults in `configs/example.yaml` exist only for the artificial toy
 dataset.
 
+Current validation checks ordering and uniqueness within each CSV. Users must
+also ensure that train ends before validation begins and validation ends before
+test begins; cross-split non-overlap is not currently enforced automatically.
+
 Validate without creating an experiment:
 
 ```bash

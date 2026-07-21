@@ -3,7 +3,7 @@
 All notable public-release changes are documented here. This project follows Semantic
 Versioning.
 
-## [1.0.0] - 2026-07-21
+## [1.0.0] - Unreleased
 
 ### Added
 
@@ -12,7 +12,7 @@ Versioning.
 - Upload-first Streamlit Example Workspace and command-line interface.
 - Entirely synthetic train, validation, and test CSV examples.
 - Public documentation, community health files, CI, citation, and Apache License 2.0.
-- SHA-256 checksum list, signed release manifest, and authenticity statement.
+- SHA-256 checksum list, release integrity manifest, and authenticity statement.
 
 ### Security
 

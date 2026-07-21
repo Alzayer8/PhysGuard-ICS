@@ -17,7 +17,8 @@ from physguard.analysis import validate_frame
 from physguard.config import load_config
 from physguard.experiments import run_experiment
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_CONFIG = Path(__file__).resolve().parent / "data" / "example.yaml"
+DEFAULT_WORKSPACE = Path("example-workspace")
 
 
 def _read_csv(path: Path) -> pd.DataFrame:
@@ -43,8 +44,8 @@ def _build_parser() -> argparse.ArgumentParser:
 
     analyze = subparsers.add_parser("analyze", help="Create a new immutable experiment")
     _add_data_arguments(analyze)
-    analyze.add_argument("--config", type=Path, default=PROJECT_ROOT / "configs" / "example.yaml")
-    analyze.add_argument("--workspace", type=Path, default=PROJECT_ROOT / "example-workspace")
+    analyze.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
+    analyze.add_argument("--workspace", type=Path, default=DEFAULT_WORKSPACE)
     analyze.add_argument("--experiment-id")
     return parser
 

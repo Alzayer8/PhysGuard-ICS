@@ -8,7 +8,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -31,11 +33,39 @@ def _sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _tracked_relative_paths() -> list[Path]:
+    """Return the repository's tracked files without inspecting untracked content."""
+
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(ROOT), "ls-files", "-z", "--"],
+            check=True,
+            capture_output=True,
+        )
+    except FileNotFoundError as error:
+        raise RuntimeError(
+            "Git is required to inventory release files but was not found"
+        ) from error
+    except subprocess.CalledProcessError as error:
+        detail = error.stderr.decode(errors="replace").strip()
+        message = "Git could not list tracked release files"
+        if detail:
+            message = f"{message}: {detail}"
+        raise RuntimeError(message) from error
+
+    relative_paths = [
+        Path(os.fsdecode(raw_path)) for raw_path in result.stdout.split(b"\0") if raw_path
+    ]
+    missing = [path.as_posix() for path in relative_paths if not (ROOT / path).is_file()]
+    if missing:
+        raise RuntimeError(f"tracked release files are missing: {', '.join(sorted(missing))}")
+    return sorted(relative_paths, key=lambda path: path.as_posix())
+
+
 def _payload_files() -> list[Path]:
-    return sorted(
-        (path for path in ROOT.rglob("*") if path.is_file() and path.name not in METADATA_NAMES),
-        key=lambda path: path.relative_to(ROOT).as_posix(),
-    )
+    return [
+        ROOT / path for path in _tracked_relative_paths() if path.as_posix() not in METADATA_NAMES
+    ]
 
 
 def _entry(path: Path) -> dict[str, str | int]:
@@ -67,20 +97,22 @@ def _render_metadata() -> tuple[bytes, bytes, int]:
                 "author": "Ahmad Alzayer",
                 "version": "v1.0.0",
                 "release_identifier": "physguard-ics-public-v1.0.0",
-                "release_timestamp": "2026-07-21T23:55:00+03:00",
-                "repository_identifier": "PhysGuard-ICS/github-release",
+                "release_status": "pre-release",
+                "release_timestamp": None,
+                "repository_identifier": "Alzayer8/PhysGuard-ICS",
+                "repository_url": "https://github.com/Alzayer8/PhysGuard-ICS",
                 "hash_algorithm": "SHA-256",
-                "manifest_scope": "all files except release_manifest.json itself",
+                "manifest_scope": "all Git-tracked files except release_manifest.json itself",
                 "total_file_count": len(manifest_entries) + 1,
                 "total_release_bytes": total_bytes,
             },
             "files": manifest_entries,
-            "official_release_signature": {
+            "authenticity_statement": {
                 "project": "PhysGuard-ICS",
                 "author": "Ahmad Alzayer",
                 "notice": (
-                    "This signature is for authenticity only and is NOT a cryptographic "
-                    "code-signing certificate."
+                    "This statement is descriptive metadata only. It is not a digital "
+                    "signature and does not authenticate the repository cryptographically."
                 ),
             },
         }
@@ -113,7 +145,7 @@ def build() -> None:
 
 
 def verify() -> None:
-    """Verify every manifest entry, checksum line, signature, and inventory boundary."""
+    """Verify every manifest entry, checksum line, statement, and inventory boundary."""
 
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     expected_paths: set[str] = set()
@@ -128,19 +160,41 @@ def verify() -> None:
         if _sha256_file(path) != entry["sha256"]:
             raise RuntimeError(f"hash mismatch: {relative}")
     actual_paths = {
-        path.relative_to(ROOT).as_posix()
-        for path in ROOT.rglob("*")
-        if path.is_file() and path.name != MANIFEST_PATH.name
+        path.as_posix()
+        for path in _tracked_relative_paths()
+        if path.as_posix() != MANIFEST_PATH.name
     }
     if actual_paths != expected_paths:
         raise RuntimeError("manifest inventory does not match the release tree")
-    signature = manifest["official_release_signature"]
-    if signature["project"] != "PhysGuard-ICS" or signature["author"] != "Ahmad Alzayer":
-        raise RuntimeError("official release signature is invalid")
-    for line in CHECKSUM_PATH.read_text(encoding="utf-8").splitlines():
-        expected_hash, relative = line.split("  ", 1)
+    release = manifest["release"]
+    if int(release["total_file_count"]) != len(expected_paths) + 1:
+        raise RuntimeError("manifest total file count is invalid")
+    total_release_bytes = sum((ROOT / path).stat().st_size for path in expected_paths)
+    total_release_bytes += MANIFEST_PATH.stat().st_size
+    if int(release["total_release_bytes"]) != total_release_bytes:
+        raise RuntimeError("manifest total release size is invalid")
+    statement = manifest["authenticity_statement"]
+    if statement["project"] != "PhysGuard-ICS" or statement["author"] != "Ahmad Alzayer":
+        raise RuntimeError("release authenticity statement is invalid")
+    if "not a digital signature" not in str(statement["notice"]).lower():
+        raise RuntimeError("release authenticity statement lacks the signature disclaimer")
+
+    checksum_paths: set[str] = set()
+    for line_number, line in enumerate(
+        CHECKSUM_PATH.read_text(encoding="utf-8").splitlines(), start=1
+    ):
+        match = re.fullmatch(r"([0-9a-f]{64})  (.+)", line)
+        if match is None:
+            raise RuntimeError(f"invalid checksum format on line {line_number}")
+        expected_hash, relative = match.groups()
+        if relative in checksum_paths:
+            raise RuntimeError(f"duplicate checksum path: {relative}")
+        checksum_paths.add(relative)
         if _sha256_file(ROOT / relative) != expected_hash:
             raise RuntimeError(f"checksum mismatch: {relative}")
+    expected_checksum_paths = expected_paths - {CHECKSUM_PATH.name}
+    if checksum_paths != expected_checksum_paths:
+        raise RuntimeError("checksum inventory does not match the release payload")
 
 
 def main() -> int:
@@ -150,7 +204,7 @@ def main() -> int:
     if args.write:
         build()
     verify()
-    print("Release integrity verified: all hashes, sizes, files, and signature match.")
+    print("Release integrity verified: all tracked files, hashes, sizes, and metadata match.")
     return 0
 
 
